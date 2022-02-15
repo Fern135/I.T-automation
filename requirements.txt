@@ -1,0 +1,12 @@
+flask-sqlalchemy
+sqlalchemy
+pymysql
+python-dotenv
+colorama
+pandas
+autopep8
+pip-review
+pyautogui
+py2exe
+requests
+beautifulsoup4
