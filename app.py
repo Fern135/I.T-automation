@@ -2,24 +2,18 @@ import pyautogui
 import json
 import datetime
 import requests
+import time
 import threading
 from lib.email import Email
 
 # https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 
-em = Email()
+em = Email() # sending email
 
 # https://pyautogui.readthedocs.io/en/latest/
 screenWidth, screenHeight = pyautogui.size() # Get the size of the primary monitor.
 
-# html = f"""
-#<html>
-#    <body>
-#        <h1>{subject}</h1>
-#        <p>{body}</p>
-#    </body>
-#</html>
-#"""
+cDate = datetime.datetime.now() 
 
 SAVED_DATA = "./settings/settings.json"
 
@@ -31,10 +25,26 @@ def save_data(data):
 def load_data(filepath):
     try:
         with open(filepath, "r") as f:
-            data = json.load(f)
-            return data
+            return  json.load(f)
     except:
         return {}
+
+def sendEmail():
+    html = f"""
+        <html>
+            <body>
+                <h2>Date: {f"{cDate.month} / {cDate.day} / {cDate.year}"}</h2>
+                <h2>Time: {cDate.strftime('%Y/%m/%d %I:%M:%S')} </h2>
+            </body>
+        </html>
+    """
+
+def checkForCcleaner():
+    print("ccleaner")
+
+
+def checkForMalwareBytes():
+    print("MalwareBytes")
 
 
 def downLoadCcleaner(): # downloading ccleaner
@@ -72,13 +82,14 @@ def downLoadMalwareBytes(): # downloading ccleaner
         # to a new file in binary mode.
         f.write(r.content)
 
+
 def mainProgram():
     print("placeholder")
 
-def run():
+
+def runFirst():
     data  = load_data(SAVED_DATA)
-    cDate = datetime.datetime.now() 
-    
+
     if data["computer-name"] == None:
 
         computerName = input("input computer:\t")
@@ -92,8 +103,9 @@ def run():
 
         print("\n\nSaving\n\n")
         save_data(settings)
+        time.sleep(1.05)
         print("\n\nSaved\n\n")
-
+        time.sleep(1.05)
         mainProgram()
 
     else:
@@ -101,4 +113,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    runFirst()
